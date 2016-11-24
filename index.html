@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>toggleSlide</title>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrap{
+        width: 300px;
+        margin: 100px auto 0;
+    }
+    .box{
+        background: #1a6a37;
+        color:#FFF;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+    p{
+        padding: 20px 0;
+    }
+    .toggle_area{
+        display: none;
+    }
+    .btn{
+        width: 80%;
+        margin: 20px auto 0;
+    }
+    .btn a{
+        position: relative;
+        display: block;
+        background: #FFF;
+        color: #ae8046;
+        text-align: center;
+        font-weight: bold;
+        padding: 5% 0;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        var hoge;
+        hoge = new _hoge();
+        $('.toggleBtn').on('click','a',function(){
+            hoge.toggleslide(this);
+        });
+    });
+    var _hoge = function(op) {
+        this.toggleSpeed=300;
+
+    }
+    _hoge.prototype = {
+        init: function(){
+        },
+        toggleslide:function(el){
+            var self,cl,scrollId,pos;
+            self=this;
+            cl=$(el).attr('class');
+            if(cl=="open"){
+                $(el).parent('.toggleBtn').parent('.toggle_target').find('.toggle_area').slideDown(self.toggleSpeed);
+                $(el).attr('class','close').text('閉じる');
+            }else{
+                scrollId=$(el).data('return');
+                pos=$('#'+scrollId).offset().top;
+                $("html,body").animate({scrollTop:pos}, self.toggleSpeed);
+                $(el).parent('.toggleBtn').parent('.toggle_target').find('.toggle_area').slideUp(self.toggleSpeed);
+                $(el).attr('class','open').text('開く');
+            }
+        }
+    };
+</script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="toggle_target box" id="contents01">
+            <p>開閉ボタンが下付きのToggleボタン</p>
+            <div class="toggle_area">
+                <div><img src="http://placehold.jp/300x200.png"></div>
+                <div><img src="http://placehold.jp/300x200.png"></div>
+                <div><img src="http://placehold.jp/300x200.png"></div>
+                <div><img src="http://placehold.jp/300x200.png"></div>
+                <div><img src="http://placehold.jp/300x200.png"></div>
+                <div><img src="http://placehold.jp/300x200.png"></div>
+                <div><img src="http://placehold.jp/300x200.png"></div>
+            </div>
+            <div class="toggleBtn btn"><a href="javascript:void(0);" class="open" data-return="contents01">開く</a></div>
+        </div>
+
+    </div>
+</body>
+</html>
